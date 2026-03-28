@@ -8,13 +8,6 @@ import { DBService } from '../services/DBService';
   templateUrl: './list-page.html',
 })
 export class ListPage {
-  // todoItems: any[];
-
-  // constructor() {
-  //   console.log(this.date());
-  //   this.todoItems = this.dbService.getEventsByDate(this.date());
-  // }
-
   addItem() {
     console.log('adding item');
     this.dbService.addItem();
@@ -27,11 +20,9 @@ export class ListPage {
 
   dbResource = resource({
     params: () => ({ date: this.date() }),
-    loader: (params) => this.dbService.getEventsByDate(params.params.date),
+    loader: (params) => this.dbService.getItemsByDate(params.params.date),
   });
 
   isLoading = computed(() => this.dbResource.status() === 'loading');
   isError = computed(() => this.dbResource.status() === 'error');
-
-  todoItems = this.dbService.getEventsByDate(this.date());
 }

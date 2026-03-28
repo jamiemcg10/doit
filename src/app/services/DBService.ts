@@ -78,7 +78,7 @@ export class DBService {
   //   }
   // }
 
-  async getEventsByDate(date: string) {
+  async getItemsByDate(date: string) {
     if (!isPlatformBrowser(this.platformId)) return;
 
     console.log('getting events by date', date);
