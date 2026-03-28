@@ -1,5 +1,5 @@
 <div>List for {{ date() }}</div>
-@for (something of dbResource.value(); track something.name) {
-  <div>{{ something.name }}</div>
+@for (item of dbResource.value(); track item.id) {
+  <div>{{ item.name }}</div>
 }
 <button (click)="addItem()">+</button>
