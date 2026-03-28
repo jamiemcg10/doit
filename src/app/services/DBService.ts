@@ -33,8 +33,11 @@ export class DBService {
           const db = (event!.target! as DBOpenEventTarget).result;
           // Create an objectStore for this database
           const objectStore = db.createObjectStore('dates', {
-            keyPath: 'date',
+            // change later
+            autoIncrement: true,
+            keyPath: 'id',
           });
+          objectStore.createIndex('date', 'id', { unique: false });
         };
       });
 
@@ -75,17 +78,33 @@ export class DBService {
   //   }
   // }
 
-  getEventsByDate(date: string) {
+  async getEventsByDate(date: string) {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    console.log('getting events by date');
-    console.log(this.db);
+    console.log('getting events by date', date);
 
-    const transaction = this.db.transaction('dates', 'readonly');
+    return new Promise<any[]>((resolve, reject) => {
+      const transaction = this.db.transaction('dates', 'readonly');
+      console.log({ transaction });
+      const objectStore = transaction.objectStore('dates');
+      const t = objectStore.getAll();
+
+      t.onsuccess = (e: any) => {
+        console.log({ e });
+        resolve(e.target.result);
+      };
+    });
+  }
+
+  addItem() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const transaction = this.db.transaction('dates', 'readwrite');
     console.log({ transaction });
     const objectStore = transaction.objectStore('dates');
-    const t = objectStore.getAll();
 
-    console.log({ t });
+    const request = objectStore.add({ date: '2026-03-28', name: 'Test 1', completed: false });
+
+    request.onsuccess = () => console.log('yay');
   }
 }

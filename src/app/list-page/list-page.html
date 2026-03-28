@@ -1,1 +1,5 @@
 <div>List for {{ date() }}</div>
+@for (something of dbResource.value(); track something.name) {
+  <div>{{ something.name }}</div>
+}
+<button (click)="addItem()">+</button>
