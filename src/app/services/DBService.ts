@@ -55,29 +55,6 @@ export class DBService {
     return this.db;
   }
 
-  // constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-  //   if (isPlatformBrowser(platformId)) {
-  //     const request = window.indexedDB.open(this.DB_NAME, 1);
-
-  //     request.onerror = (e) => {
-  //       console.error('An error occured when opening the database', e);
-  //     };
-
-  //     request.onsuccess = (e) => {
-  //       console.log('Success opening database!');
-  //       const target = e.target as DBOpenEventTarget;
-
-  //       if (target?.result) {
-  //         this.db = target.result;
-  //         this.db.onerror = (event: Event) => {
-  //           const target = event.target as DBOpenErrorEventTarget;
-  //           console.error(`Database error: ${target?.error?.message}`);
-  //         };
-  //       }
-  //     };
-  //   }
-  // }
-
   async getItemsByDate(date: string) {
     if (!isPlatformBrowser(this.platformId)) return;
 
