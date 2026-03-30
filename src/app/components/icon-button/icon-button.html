@@ -1,0 +1,20 @@
+<button
+  class="w-7 h-7 rounded-full cursor-pointer shadow-sm"
+  [style]="{
+    color: colorMap[icon() || 'settings'],
+    backgroundColor: colorMap[icon() || 'settings'],
+  }"
+  (click)="onClick.emit($event)"
+>
+  @if (icon() === 'delete') {
+    <span class="material-symbols-outlined">delete</span>
+  } @else if (icon() === 'settings') {
+    <span class="material-symbols-outlined">settings</span>
+  } @else if (icon() === 'add') {
+    <span class="material-symbols-outlined">add</span>
+  } @else if (icon() === 'calendar_month') {
+    <span class="material-symbols-outlined">calendar_month</span>
+  } @else {
+    <ng-content />
+  }
+</button>
