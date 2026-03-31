@@ -3,17 +3,26 @@
   [style]="{
     color: colorMap[icon() || 'settings'],
     backgroundColor: colorMap[icon() || 'settings'],
+    ...style(),
   }"
   (click)="onClick.emit($event)"
 >
-  @if (icon() === 'delete') {
-    <span class="material-symbols-outlined">delete</span>
-  } @else if (icon() === 'settings') {
-    <span class="material-symbols-outlined">settings</span>
-  } @else if (icon() === 'add') {
-    <span class="material-symbols-outlined">add</span>
+  @if (icon() === 'add') {
+    <span class="material-symbols-rounded">add</span>
+  } @else if (icon() === 'arrow_back_2') {
+    <span class="material-symbols-rounded">arrow_back_2</span>
   } @else if (icon() === 'calendar_month') {
-    <span class="material-symbols-outlined">calendar_month</span>
+    <span class="material-symbols-rounded">calendar_month</span>
+  } @else if (icon() === 'delete') {
+    <span class="material-symbols-rounded">delete</span>
+  } @else if (icon() === 'edit') {
+    <span class="material-symbols-rounded">edit</span>
+  } @else if (icon() === 'play_arrow') {
+    <span class="material-symbols-rounded">play_arrow</span>
+  } @else if (icon() === 'move_item') {
+    <span class="material-symbols-rounded">move_item</span>
+  } @else if (icon() === 'settings') {
+    <span class="material-symbols-rounded">settings</span>
   } @else {
     <ng-content />
   }

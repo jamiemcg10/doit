@@ -11,7 +11,21 @@ export class IconButton {
     settings: 'lightgray',
     calendar_month: 'lightblue',
     add: 'blue',
+    arrow_back_2: 'white',
+    play_arrow: 'white',
+    edit: 'yellow',
+    move_item: 'white',
   };
   onClick = new EventEmitter<Event>();
-  icon = input<'delete' | 'settings' | 'add' | 'calendar_month'>();
+  style = input<Record<string, string>>();
+  icon = input<
+    | 'add'
+    | 'arrow_back_2'
+    | 'calendar_month'
+    | 'delete'
+    | 'edit'
+    | 'move_item'
+    | 'play_arrow'
+    | 'settings'
+  >();
 }
