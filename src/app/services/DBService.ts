@@ -1,6 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
+interface Todo {
+  name: string;
+  completed: boolean;
+  id: string | number;
+}
 interface DBOpenEventTarget extends EventTarget {
   result: any;
 }
@@ -60,7 +65,7 @@ export class DBService {
 
     console.log('getting events by date', date);
 
-    return new Promise<any[]>((resolve, reject) => {
+    return new Promise<Todo[]>((resolve, reject) => {
       const transaction = this.db.transaction('dates', 'readonly');
       console.log({ transaction });
       const objectStore = transaction.objectStore('dates');
