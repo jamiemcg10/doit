@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   templateUrl: './icon-button.html',
@@ -16,7 +16,6 @@ export class IconButton {
     edit: '#f4f48c',
     move_item: 'lightblue',
   };
-  onClick = new EventEmitter<Event>();
   size = input<'small' | 'large'>('small');
   style = input<Record<string, string>>();
   icon = input<

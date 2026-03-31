@@ -5,7 +5,7 @@ import { NotFound } from './not-found/not-found';
 import { dateResolver } from './resolvers/dateResolver';
 
 export const routes: Routes = [
-  { path: '', component: ListPage, resolve: { date: dateResolver }, data: { class: 'flex' } },
+  { path: '', component: ListPage, resolve: { date: dateResolver } },
   { path: 'calendar', component: CalendarPage },
   { path: 'date/:date', component: ListPage, resolve: { date: dateResolver } },
   { path: '**', component: NotFound },
