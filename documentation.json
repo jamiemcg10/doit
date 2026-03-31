@@ -372,7 +372,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div>DoIt!</div>\r\n\r\n<router-outlet />\r\n"
+            "templateData": "<div class=\"h-full\">\r\n  <div class=\"text-center text-3xl font-bold mt-2\">DoIt!</div>\r\n  <router-outlet />\r\n</div>\r\n"
         },
         {
             "name": "ButtonComponent",
@@ -633,7 +633,7 @@
         },
         {
             "name": "IconButton",
-            "id": "component-IconButton-7cf08a8c0607b7ae5f6bc03c4ee583822ef717c6a08f3b5e9a98314be12daff8d409c7264bb1e74cf9aa2d72e000f9d5f85097675a6133a90720e29ec4146f5f",
+            "id": "component-IconButton-0c5e51d498e74b336ef1ed69791fc2fa1071b42a87f72e60f6e75c6463223f86e85ae6e810f600c7472b9f0fade3e0ab1bac11767ee265614e0fcf1723fd38f2",
             "file": "src/app/components/icon-button/icon-button.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -653,11 +653,34 @@
                     "name": "icon",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "\"delete\" | \"settings\" | \"add\" | \"calendar_month\"",
+                    "type": "\r    | 'add'\r    | 'arrow_back_2'\r    | 'calendar_month'\r    | 'delete'\r    | 'edit'\r    | 'move_item'\r    | 'play_arrow'\r    | 'settings'\r  ",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 22,
+                    "required": false
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'small'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"small\" | \"large\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "required": false
+                },
+                {
+                    "name": "style",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Record<string, string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21,
                     "required": false
                 }
             ],
@@ -665,7 +688,7 @@
             "propertiesClass": [
                 {
                     "name": "colorMap",
-                    "defaultValue": "{\r\n    delete: '#ef9c9c',\r\n    settings: 'lightgray',\r\n    calendar_month: 'lightblue',\r\n    add: 'blue',\r\n  }",
+                    "defaultValue": "{\r\n    delete: '#ef9c9c',\r\n    settings: 'lightgray',\r\n    calendar_month: 'lightblue',\r\n    add: 'blue',\r\n    arrow_back_2: 'white',\r\n    play_arrow: 'white',\r\n    edit: 'yellow',\r\n    move_item: 'white',\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
@@ -683,7 +706,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 19
                 }
             ],
             "methodsClass": [],
@@ -696,17 +719,17 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, input } from '@angular/core';\r\n\r\n@Component({\r\n  templateUrl: './icon-button.html',\r\n  selector: 'icon-button',\r\n  styleUrl: 'icon-button.css',\r\n})\r\nexport class IconButton {\r\n  colorMap = {\r\n    delete: '#ef9c9c',\r\n    settings: 'lightgray',\r\n    calendar_month: 'lightblue',\r\n    add: 'blue',\r\n  };\r\n  onClick = new EventEmitter<Event>();\r\n  icon = input<'delete' | 'settings' | 'add' | 'calendar_month'>();\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, input } from '@angular/core';\r\n\r\n@Component({\r\n  templateUrl: './icon-button.html',\r\n  selector: 'icon-button',\r\n  styleUrl: 'icon-button.css',\r\n})\r\nexport class IconButton {\r\n  colorMap = {\r\n    delete: '#ef9c9c',\r\n    settings: 'lightgray',\r\n    calendar_month: 'lightblue',\r\n    add: 'blue',\r\n    arrow_back_2: 'white',\r\n    play_arrow: 'white',\r\n    edit: 'yellow',\r\n    move_item: 'white',\r\n  };\r\n  onClick = new EventEmitter<Event>();\r\n  size = input<'small' | 'large'>('small');\r\n  style = input<Record<string, string>>();\r\n  icon = input<\r\n    | 'add'\r\n    | 'arrow_back_2'\r\n    | 'calendar_month'\r\n    | 'delete'\r\n    | 'edit'\r\n    | 'move_item'\r\n    | 'play_arrow'\r\n    | 'settings'\r\n  >();\r\n}\r\n",
             "styleUrl": "icon-button.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<button\r\n  class=\"w-7 h-7 rounded-full cursor-pointer shadow-sm\"\r\n  [style]=\"{\r\n    color: colorMap[icon() || 'settings'],\r\n    backgroundColor: colorMap[icon() || 'settings'],\r\n  }\"\r\n  (click)=\"onClick.emit($event)\"\r\n>\r\n  @if (icon() === 'delete') {\r\n    <span class=\"material-symbols-outlined\">delete</span>\r\n  } @else if (icon() === 'settings') {\r\n    <span class=\"material-symbols-outlined\">settings</span>\r\n  } @else if (icon() === 'add') {\r\n    <span class=\"material-symbols-outlined\">add</span>\r\n  } @else if (icon() === 'calendar_month') {\r\n    <span class=\"material-symbols-outlined\">calendar_month</span>\r\n  } @else {\r\n    <ng-content />\r\n  }\r\n</button>\r\n"
+            "templateData": "<button\r\n  class=\"{{ size() === 'small' ? 'w-7 h-7' : 'w-10 h-10' }} rounded-full cursor-pointer shadow-sm\"\r\n  [style]=\"{\r\n    color: colorMap[icon() || 'settings'],\r\n    backgroundColor: colorMap[icon() || 'settings'],\r\n    ...style(),\r\n  }\"\r\n  (click)=\"onClick.emit($event)\"\r\n>\r\n  @if (icon() === 'add') {\r\n    <span class=\"material-symbols-rounded\">add</span>\r\n  } @else if (icon() === 'arrow_back_2') {\r\n    <span class=\"material-symbols-rounded\">arrow_back_2</span>\r\n  } @else if (icon() === 'calendar_month') {\r\n    <span class=\"material-symbols-rounded\">calendar_month</span>\r\n  } @else if (icon() === 'delete') {\r\n    <span class=\"material-symbols-rounded\">delete</span>\r\n  } @else if (icon() === 'edit') {\r\n    <span class=\"material-symbols-rounded\">edit</span>\r\n  } @else if (icon() === 'play_arrow') {\r\n    <span class=\"material-symbols-rounded\">play_arrow</span>\r\n  } @else if (icon() === 'move_item') {\r\n    <span class=\"material-symbols-rounded\">move_item</span>\r\n  } @else if (icon() === 'settings') {\r\n    <span class=\"material-symbols-rounded\">settings</span>\r\n  } @else {\r\n    <ng-content />\r\n  }\r\n</button>\r\n"
         },
         {
             "name": "ListPage",
-            "id": "component-ListPage-823b86bc8573e2fffed062e18f53344377272140c5ebb3341d4646c95075c0856d3e832e2a1c6cc5975281fa1da2e9d507b7835cd029c9715f6b544bdb22bcda",
+            "id": "component-ListPage-18cccc09b7bbaa1971441b58c2d38b6d4ec1a0660fa4436f141bb6890ddc4a280ea3a5602063d498e1e95266b140b7b481706c47a875b85ed58289b118d59141",
             "file": "src/app/list-page/list-page.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -733,21 +756,21 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 18,
+                    "line": 19,
                     "modifierKind": [
                         123
                     ]
                 },
                 {
                     "name": "date",
-                    "defaultValue": "computed(() => (this.data() ? this.data()!['date'] : ''))",
+                    "defaultValue": "computed(() => (this.data() ? this.data()!['date'] : '12'))",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "dbResource",
@@ -758,7 +781,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 23
                 },
                 {
                     "name": "dbService",
@@ -769,7 +792,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 },
                 {
                     "name": "isError",
@@ -780,7 +803,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 28
+                    "line": 29
                 },
                 {
                     "name": "isLoading",
@@ -791,7 +814,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 28
                 },
                 {
                     "name": "route",
@@ -802,7 +825,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 18,
                     "modifierKind": [
                         123
                     ]
@@ -815,7 +838,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 12,
+                    "line": 13,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -828,17 +851,20 @@
             "imports": [
                 {
                     "name": "TodoItem"
+                },
+                {
+                    "name": "IconButton"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, computed, inject, resource } from '@angular/core';\r\nimport { toSignal } from '@angular/core/rxjs-interop';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { DBService } from '../services/DBService';\r\nimport { TodoItem } from '../components/todo-item/todo-item';\r\n@Component({\r\n  selector: 'list-page',\r\n  templateUrl: './list-page.html',\r\n  imports: [TodoItem],\r\n})\r\nexport class ListPage {\r\n  addItem() {\r\n    console.log('adding item');\r\n    this.dbService.addItem();\r\n  }\r\n\r\n  private route = inject(ActivatedRoute);\r\n  private data = toSignal(this.route.data);\r\n  dbService = inject(DBService);\r\n  date = computed(() => (this.data() ? this.data()!['date'] : ''));\r\n\r\n  dbResource = resource({\r\n    params: () => ({ date: this.date() }),\r\n    loader: (params) => this.dbService.getItemsByDate(params.params.date),\r\n  });\r\n\r\n  isLoading = computed(() => this.dbResource.status() === 'loading');\r\n  isError = computed(() => this.dbResource.status() === 'error');\r\n}\r\n",
+            "sourceCode": "import { Component, computed, inject, resource } from '@angular/core';\r\nimport { toSignal } from '@angular/core/rxjs-interop';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { DBService } from '../services/DBService';\r\nimport { TodoItem } from '../components/todo-item/todo-item';\r\nimport { IconButton } from '../components/icon-button/icon-button';\r\n@Component({\r\n  selector: 'list-page',\r\n  templateUrl: './list-page.html',\r\n  imports: [TodoItem, IconButton],\r\n})\r\nexport class ListPage {\r\n  addItem() {\r\n    console.log('adding item');\r\n    this.dbService.addItem();\r\n  }\r\n\r\n  private route = inject(ActivatedRoute);\r\n  private data = toSignal(this.route.data);\r\n  dbService = inject(DBService);\r\n  date = computed(() => (this.data() ? this.data()!['date'] : '12'));\r\n\r\n  dbResource = resource({\r\n    params: () => ({ date: this.date() }),\r\n    loader: (params) => this.dbService.getItemsByDate(params.params.date),\r\n  });\r\n\r\n  isLoading = computed(() => this.dbResource.status() === 'loading');\r\n  isError = computed(() => this.dbResource.status() === 'error');\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div>List for {{ date() }}</div>\r\n@for (item of dbResource.value(); track item.id) {\r\n  <todo-item [item]=\"item\"></todo-item>\r\n}\r\n<button (click)=\"addItem()\">+</button>\r\n"
+            "templateData": "<div class=\"flex flex-col\">\r\n  <header class=\"flex justify-around items-center text-center\">\r\n    <icon-button icon=\"arrow_back_2\" size=\"large\" />\r\n    <span>{{ date() }}</span>\r\n    <icon-button icon=\"play_arrow\" size=\"large\" />\r\n  </header>\r\n\r\n  <main class=\"grow px-2 my-2 mb-16\">\r\n    @for (item of dbResource.value(); track item.id) {\r\n      <todo-item [item]=\"item\"></todo-item>\r\n    }\r\n  </main>\r\n\r\n  <footer class=\"absolute bottom-0 w-full h-16 flex justify-around items-center bg-gray-200\">\r\n    <icon-button icon=\"settings\" size=\"large\" />\r\n    <icon-button icon=\"add\" size=\"large\" (click)=\"addItem()\" />\r\n    <icon-button icon=\"calendar_month\" size=\"large\" />\r\n  </footer>\r\n</div>\r\n"
         },
         {
             "name": "NotFound",
@@ -1022,7 +1048,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"flex border border-gray-400\">\r\n  <input type=\"checkbox\" />\r\n  {{ item().name }}\r\n  <icon-button icon=\"delete\" />\r\n</div>\r\n"
+            "templateData": "<div class=\"flex rounded-sm border border-gray-400 p-4 mb-2 justify-between\">\r\n  <div>\r\n    <input type=\"checkbox\" />\r\n    {{ item().name }}\r\n  </div>\r\n  <div class=\"flex space-x-2\">\r\n    <icon-button icon=\"move_item\" [style]=\"{ rotate: '180deg' }\" />\r\n    <icon-button icon=\"edit\" />\r\n    <icon-button icon=\"delete\" />\r\n    <icon-button icon=\"move_item\" />\r\n  </div>\r\n</div>\r\n"
         }
     ],
     "modules": [],
@@ -1096,7 +1122,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ResolveFn<string>",
-                "defaultValue": "(\r\n  route: ActivatedRouteSnapshot,\r\n  state: RouterStateSnapshot,\r\n) => {\r\n  const dateString = route.paramMap.get('date')!;\r\n  const date = new Date(dateString);\r\n\r\n  // TODO: test regex, if invalid, route to not found\r\n\r\n  return !!date ? dateString : new Date().toLocaleDateString('en-CA');\r\n}"
+                "defaultValue": "(\r\n  route: ActivatedRouteSnapshot,\r\n  state: RouterStateSnapshot,\r\n) => {\r\n  const dateString = route.paramMap.get('date')!;\r\n  const date = dateString ? new Date(dateString) : new Date();\r\n\r\n  // TODO: test regex, if invalid, route to not found\r\n  console.log({ date });\r\n  return !!dateString ? dateString : date.toLocaleDateString('en-CA');\r\n}"
             },
             {
                 "name": "reqHandler",
@@ -1118,7 +1144,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Routes",
-                "defaultValue": "[\r\n  { path: '', component: ListPage },\r\n  { path: 'calendar', component: CalendarPage },\r\n  { path: 'date/:date', component: ListPage, resolve: { date: dateResolver } },\r\n  { path: '**', component: NotFound },\r\n]"
+                "defaultValue": "[\r\n  { path: '', component: ListPage, resolve: { date: dateResolver }, data: { class: 'flex' } },\r\n  { path: 'calendar', component: CalendarPage },\r\n  { path: 'date/:date', component: ListPage, resolve: { date: dateResolver } },\r\n  { path: '**', component: NotFound },\r\n]"
             },
             {
                 "name": "serverConfig",
@@ -1244,7 +1270,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ResolveFn<string>",
-                    "defaultValue": "(\r\n  route: ActivatedRouteSnapshot,\r\n  state: RouterStateSnapshot,\r\n) => {\r\n  const dateString = route.paramMap.get('date')!;\r\n  const date = new Date(dateString);\r\n\r\n  // TODO: test regex, if invalid, route to not found\r\n\r\n  return !!date ? dateString : new Date().toLocaleDateString('en-CA');\r\n}"
+                    "defaultValue": "(\r\n  route: ActivatedRouteSnapshot,\r\n  state: RouterStateSnapshot,\r\n) => {\r\n  const dateString = route.paramMap.get('date')!;\r\n  const date = dateString ? new Date(dateString) : new Date();\r\n\r\n  // TODO: test regex, if invalid, route to not found\r\n  console.log({ date });\r\n  return !!dateString ? dateString : date.toLocaleDateString('en-CA');\r\n}"
                 }
             ],
             "src/app/app.routes.ts": [
@@ -1256,7 +1282,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Routes",
-                    "defaultValue": "[\r\n  { path: '', component: ListPage },\r\n  { path: 'calendar', component: CalendarPage },\r\n  { path: 'date/:date', component: ListPage, resolve: { date: dateResolver } },\r\n  { path: '**', component: NotFound },\r\n]"
+                    "defaultValue": "[\r\n  { path: '', component: ListPage, resolve: { date: dateResolver }, data: { class: 'flex' } },\r\n  { path: 'calendar', component: CalendarPage },\r\n  { path: 'date/:date', component: ListPage, resolve: { date: dateResolver } },\r\n  { path: '**', component: NotFound },\r\n]"
                 }
             ],
             "src/app/app.routes.server.ts": [
@@ -1384,7 +1410,7 @@
                 "linktype": "component",
                 "name": "IconButton",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
