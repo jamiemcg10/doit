@@ -4,7 +4,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 interface Todo {
   name: string;
   completed: boolean;
-  id: string | number;
+  id: number;
 }
 interface DBOpenEventTarget extends EventTarget {
   result: any;
@@ -88,5 +88,15 @@ export class DBService {
     const request = objectStore.add({ date: '2026-03-28', name: 'Test 1', completed: false });
 
     request.onsuccess = () => console.log('yay');
+  }
+
+  deleteItem(id: number) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const transaction = this.db.transaction('dates', 'readwrite');
+    const objectStore = transaction.objectStore('dates');
+
+    const request = objectStore.delete(id);
+    request.onsuccess = () => console.log('gone');
   }
 }

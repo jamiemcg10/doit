@@ -6,7 +6,7 @@
   <div class="flex space-x-2">
     <icon-button icon="move_item" [style]="{ rotate: '180deg' }" />
     <icon-button icon="edit" />
-    <icon-button icon="delete" />
+    <icon-button icon="delete" (click)="deleteItem()" />
     <icon-button icon="move_item" />
   </div>
 </div>
