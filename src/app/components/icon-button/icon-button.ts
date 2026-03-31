@@ -17,6 +17,7 @@ export class IconButton {
     move_item: 'white',
   };
   onClick = new EventEmitter<Event>();
+  size = input<'small' | 'large'>('small');
   style = input<Record<string, string>>();
   icon = input<
     | 'add'
