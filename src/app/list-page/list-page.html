@@ -1,5 +1,19 @@
-<div>List for {{ date() }}</div>
-@for (item of dbResource.value(); track item.id) {
-  <div>{{ item.name }}</div>
-}
-<button (click)="addItem()">+</button>
+<div class="flex flex-col">
+  <header class="flex justify-around items-center text-center">
+    <icon-button icon="arrow_back_2" />
+    <span>{{ date() }}</span>
+    <icon-button icon="play_arrow" />
+  </header>
+
+  <main class="grow px-2 my-2 mb-16">
+    @for (item of dbResource.value(); track item.id) {
+      <todo-item [item]="item"></todo-item>
+    }
+  </main>
+
+  <footer class="absolute bottom-0 w-full h-16 flex justify-around items-center bg-gray-200">
+    <icon-button icon="settings" />
+    <icon-button icon="add" (click)="addItem()" />
+    <icon-button icon="calendar_month" />
+  </footer>
+</div>
