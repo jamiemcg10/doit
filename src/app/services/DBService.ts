@@ -1,11 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
-interface Todo {
-  name: string;
-  completed: boolean;
-  id: number;
-}
+import { Todo } from '../types';
 interface DBOpenEventTarget extends EventTarget {
   result: any;
 }
@@ -98,5 +93,13 @@ export class DBService {
 
     const request = objectStore.delete(id);
     request.onsuccess = () => console.log('gone');
+  }
+
+  toggleItemComplete(item: Todo) {
+    const transaction = this.db.transaction('dates', 'readwrite');
+    const objectStore = transaction.objectStore('dates');
+
+    const request = objectStore.put({ ...item, completed: !item.completed });
+    request.onsuccess = () => console.log('toggled');
   }
 }
