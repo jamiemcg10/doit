@@ -8,13 +8,13 @@ import { Component, EventEmitter, input } from '@angular/core';
 export class IconButton {
   colorMap = {
     delete: '#ef9c9c',
-    settings: 'lightgray',
+    settings: 'lightslategray',
     calendar_month: 'lightblue',
-    add: 'blue',
+    add: 'royalblue',
     arrow_back_2: 'white',
     play_arrow: 'white',
-    edit: 'yellow',
-    move_item: 'white',
+    edit: '#f4f48c',
+    move_item: 'lightblue',
   };
   onClick = new EventEmitter<Event>();
   size = input<'small' | 'large'>('small');
