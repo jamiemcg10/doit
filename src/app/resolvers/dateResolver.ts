@@ -5,9 +5,9 @@ export const dateResolver: ResolveFn<string> = (
   state: RouterStateSnapshot,
 ) => {
   const dateString = route.paramMap.get('date')!;
-  const date = new Date(dateString);
+  const date = dateString ? new Date(dateString) : new Date();
 
   // TODO: test regex, if invalid, route to not found
-
-  return !!date ? dateString : new Date().toLocaleDateString('en-CA');
+  console.log({ date });
+  return !!dateString ? dateString : date.toLocaleDateString('en-CA');
 };
