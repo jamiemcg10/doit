@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   templateUrl: './icon-button.html',
@@ -7,6 +7,8 @@ import { Component, input, output } from '@angular/core';
 })
 export class IconButton {
   colorMap = {
+    check: 'lightgreen',
+    close: '#ef9c9c',
     delete: '#ef9c9c',
     settings: 'lightslategray',
     calendar_month: 'white',
@@ -22,6 +24,8 @@ export class IconButton {
     | 'add'
     | 'arrow_back_2'
     | 'calendar_month'
+    | 'check'
+    | 'close'
     | 'delete'
     | 'edit'
     | 'move_item'

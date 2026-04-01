@@ -85,6 +85,18 @@ export class DBService {
     request.onsuccess = () => console.log('yay');
   }
 
+  updateItem(item: Todo) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const transaction = this.db.transaction('dates', 'readwrite');
+    const objectStore = transaction.objectStore('dates');
+
+    const request = objectStore.put(item);
+
+    request.onsuccess = () => console.log('yay');
+    request.onerror = () => console.log('nooo');
+  }
+
   deleteItem(id: number) {
     if (!isPlatformBrowser(this.platformId)) return;
 

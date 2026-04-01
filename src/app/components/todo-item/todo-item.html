@@ -5,16 +5,33 @@
   <div>
     <input
       type="checkbox"
-      class="scale-150"
+      class="scale-150 mr-2"
       [checked]="item().completed"
       (input)="toggleComplete()"
+      [disabled]="editing"
     />
-    <span class="ml-2 text-lg font-semibold">{{ item().name }}</span>
+    @if (editing) {
+      <input
+        id="name"
+        type="text"
+        [(ngModel)]="newName"
+        class="text-lg font-semibold inline border-b focus:outline-none"
+      />
+    } @else {
+      <span class="text-lg font-semibold">{{ item().name }}</span>
+    }
   </div>
   <div class="flex space-x-2">
-    <icon-button icon="move_item" [style]="{ rotate: '180deg' }" />
-    <icon-button icon="edit" />
-    <icon-button icon="delete" (click)="deleteItem($event)" />
-    <icon-button icon="move_item" />
+    @if (editing) {
+      @if (newName) {
+        <icon-button icon="check" (click)="saveName()" />
+      }
+      <icon-button icon="close" (click)="cancelEdit()" />
+    } @else {
+      <icon-button icon="move_item" [style]="{ rotate: '180deg' }" />
+      <icon-button icon="edit" (click)="setEditing()" />
+      <icon-button icon="delete" (click)="deleteItem($event)" />
+      <icon-button icon="move_item" />
+    }
   </div>
 </div>
