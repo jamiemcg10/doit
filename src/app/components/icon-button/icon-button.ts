@@ -9,7 +9,7 @@ export class IconButton {
   colorMap = {
     delete: '#ef9c9c',
     settings: 'lightslategray',
-    calendar_month: 'lightblue',
+    calendar_month: 'white',
     add: 'royalblue',
     arrow_back_2: 'white',
     play_arrow: 'white',
