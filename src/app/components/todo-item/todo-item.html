@@ -1,7 +1,4 @@
-<div
-  class="flex rounded-sm border border-gray-200 shadow-md p-4 mb-2 justify-between"
-  (dblclick)="toggleComplete()"
->
+<div class="flex rounded-sm border border-gray-200 shadow-md p-4 mb-2 justify-between">
   <div>
     <input
       type="checkbox"
@@ -30,7 +27,7 @@
     } @else {
       <icon-button icon="move_item" [style]="{ rotate: '180deg' }" (click)="moveToPreviousDay()" />
       <icon-button icon="edit" (click)="setEditing()" />
-      <icon-button icon="delete" (click)="deleteItem($event)" />
+      <icon-button icon="delete" (click)="deleteItem()" />
       <icon-button icon="move_item" (click)="moveToNextDay()" />
     }
   </div>

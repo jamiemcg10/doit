@@ -50,9 +50,7 @@ export class TodoItem {
     }
   }
 
-  // TODO: make sure this actually works on device
   toggleComplete() {
-    console.log('toggling complete');
     this.dbService.toggleItemComplete(this.item());
     this.triggerUpdate.emit();
   }
@@ -61,17 +59,16 @@ export class TodoItem {
     this.dbService.updateItem({ ...this.item(), date: getNextDateString(this.item().date) });
     this.triggerUpdate.emit();
   }
+
   moveToPreviousDay() {
     this.dbService.updateItem({ ...this.item(), date: getPrevDateString(this.item().date) });
     this.triggerUpdate.emit();
   }
 
-  deleteItem(event: PointerEvent) {
+  deleteItem() {
     const id = this.item().id;
     if (id === undefined) return;
 
-    console.log('deleting item', this.item().name, this.item().id);
-    event.preventDefault(); // hopefully stops double click event from being fired
     this.dbService.deleteItem(id);
     this.triggerUpdate.emit();
   }
