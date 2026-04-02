@@ -37,7 +37,7 @@ export class DBService {
             autoIncrement: true,
             keyPath: 'id',
           });
-          objectStore.createIndex('date', 'id', { unique: false });
+          objectStore.createIndex('date_index', 'date', { unique: false });
         };
       });
 
@@ -48,13 +48,6 @@ export class DBService {
     }
   }
 
-  getDb() {
-    if (!this.db) {
-      throw new Error('DB not initialized yet');
-    }
-    return this.db;
-  }
-
   async getItemsByDate(date: string) {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -62,12 +55,11 @@ export class DBService {
 
     return new Promise<Todo[]>((resolve, reject) => {
       const transaction = this.db.transaction('dates', 'readonly');
-      console.log({ transaction });
-      const objectStore = transaction.objectStore('dates');
-      const t = objectStore.getAll();
+      const index = transaction.objectStore('dates').index('date_index');
 
-      t.onsuccess = (e: any) => {
-        console.log({ e });
+      const request = index.getAll(date);
+
+      request.onsuccess = (e: any) => {
         resolve(e.target.result);
       };
     });
@@ -77,7 +69,6 @@ export class DBService {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const transaction = this.db.transaction('dates', 'readwrite');
-    console.log({ transaction });
     const objectStore = transaction.objectStore('dates');
 
     const request = objectStore.add(item);
