@@ -2,9 +2,10 @@
   <header class="flex justify-around items-center text-center">
     <icon-button icon="arrow_back_2" size="large" (click)="handleScrollBackward()" />
     <div class="flex items-center">
-      <icon-button icon="calendar_month" /><span class="ml-2 text-xl font-bold leading-4.5">{{
-        date() === today ? 'Today' : date()
-      }}</span>
+      <icon-button icon="calendar_month" /><span
+        class="ml-2 text-xl text-[royalblue] font-bold leading-4.5"
+        >{{ date() === today ? 'Today' : date() }}</span
+      >
     </div>
     <icon-button icon="play_arrow" size="large" (click)="handleScrollForward()" />
   </header>
