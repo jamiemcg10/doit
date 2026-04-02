@@ -3,6 +3,7 @@ import { IconButton } from '../icon-button/icon-button';
 import { DBService } from '../../services/DBService';
 import { Todo } from '../../types';
 import { FormsModule } from '@angular/forms';
+import { getNextDateString, getPrevDateString } from '../../utils/getDateStrings';
 @Component({
   templateUrl: './todo-item.html',
   selector: 'todo-item',
@@ -31,7 +32,6 @@ export class TodoItem {
       this.item().name = this.newName;
     } else {
       // will create new item and will need to refresh
-      console.log(this.item());
       this.dbService.createItem({ ...this.item(), name: this.newName });
       this.cancelNew.emit();
     }
@@ -54,12 +54,18 @@ export class TodoItem {
     this.dbService.toggleItemComplete(this.item());
   }
 
+  moveToNextDay() {
+    this.dbService.updateItem({ ...this.item(), date: getNextDateString(this.item().date) });
+  }
+  moveToPreviousDay() {
+    this.dbService.updateItem({ ...this.item(), date: getPrevDateString(this.item().date) });
+  }
+
   deleteItem(event: PointerEvent) {
     const id = this.item().id;
     if (id === undefined) return;
 
     console.log('deleting item', this.item().name, this.item().id);
-    console.log(typeof this.item().id);
     event.preventDefault(); // hopefully stops double click event from being fired
     this.dbService.deleteItem(id);
   }

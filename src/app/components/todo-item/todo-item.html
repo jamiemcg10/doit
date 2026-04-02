@@ -28,10 +28,10 @@
       }
       <icon-button icon="close" (click)="cancelEdit()" />
     } @else {
-      <icon-button icon="move_item" [style]="{ rotate: '180deg' }" />
+      <icon-button icon="move_item" [style]="{ rotate: '180deg' }" (click)="moveToPreviousDay()" />
       <icon-button icon="edit" (click)="setEditing()" />
       <icon-button icon="delete" (click)="deleteItem($event)" />
-      <icon-button icon="move_item" />
+      <icon-button icon="move_item" (click)="moveToNextDay()" />
     }
   </div>
 </div>
