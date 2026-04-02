@@ -5,6 +5,7 @@ import { DBService } from '../services/DBService';
 import { TodoItem } from '../components/todo-item/todo-item';
 import { IconButton } from '../components/icon-button/icon-button';
 import { Router } from '@angular/router';
+import { getNextDateString, getPrevDateString } from '../utils/getDateStrings';
 @Component({
   selector: 'list-page',
   templateUrl: './list-page.html',
@@ -14,7 +15,6 @@ export class ListPage {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private data = toSignal(this.route.data);
-  private DAY = 24 * 60 * 60 * 1000; // move to consts file if there are any others
 
   dbService = inject(DBService);
   date = computed(() => this.data()!['date']);
@@ -38,32 +38,18 @@ export class ListPage {
   }
 
   handleScrollBackward() {
-    console.log('handleScrollBackward');
-    console.log(this.data(), this.date());
     this.adding = false;
-    // get previous date
-    const currentDate = new Date(`${this.date()}T00:00`);
-    const prevDateValue = currentDate.valueOf() - this.DAY;
 
-    const prevDate = new Date(prevDateValue);
+    const prevDate = getPrevDateString(this.date());
 
-    // route
-    this.router.navigate([`/date/${prevDate.toLocaleDateString('en-CA')}`]);
+    this.router.navigate([`/date/${prevDate}`]);
   }
 
   handleScrollForward() {
-    console.log('handleScrollForward');
-    console.log(this.data(), this.date());
-    // get next date
-
     this.adding = false;
-    const currentDate = new Date(`${this.date()}T00:00`);
-    const nextDateValue = currentDate.valueOf() + this.DAY;
+    const nextDate = getNextDateString(this.date());
 
-    const nextDate = new Date(nextDateValue);
-
-    // route
-    this.router.navigate([`/date/${nextDate.toLocaleDateString('en-CA')}`]);
+    this.router.navigate([`/date/${nextDate}`]);
   }
 
   isLoading = computed(() => this.dbResource.status() === 'loading');
