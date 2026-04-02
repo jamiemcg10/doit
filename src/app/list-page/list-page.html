@@ -10,9 +10,14 @@
   </header>
 
   <main class="grow px-2 my-2 mb-16">
-    @for (item of items(); track item.id) {
-      <todo-item [item]="item" />
+    @if (items()?.length) {
+      @for (item of items(); track item.id) {
+        <todo-item [item]="item" />
+      }
+    } @else {
+      <div class="text-center mt-4 text-xl font-semibold text-[royalblue]">Nothing to do!</div>
     }
+
     @if (adding) {
       <todo-item
         [item]="{ name: '', completed: false, date: date() }"
