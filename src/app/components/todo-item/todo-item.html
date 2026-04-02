@@ -8,9 +8,9 @@
       class="scale-150 mr-2"
       [checked]="item().completed"
       (input)="toggleComplete()"
-      [disabled]="editing"
+      [disabled]="isEditing()"
     />
-    @if (editing) {
+    @if (isEditing()) {
       <input
         id="name"
         type="text"
@@ -22,7 +22,7 @@
     }
   </div>
   <div class="flex space-x-2">
-    @if (editing) {
+    @if (isEditing()) {
       @if (newName) {
         <icon-button icon="check" (click)="saveName()" />
       }

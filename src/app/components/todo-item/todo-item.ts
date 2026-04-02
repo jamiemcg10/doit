@@ -1,4 +1,4 @@
-import { Component, input, inject, signal, computed } from '@angular/core';
+import { Component, input, inject, output, linkedSignal } from '@angular/core';
 import { IconButton } from '../icon-button/icon-button';
 import { DBService } from '../../services/DBService';
 import { Todo } from '../../types';
@@ -10,26 +10,42 @@ import { FormsModule } from '@angular/forms';
 })
 export class TodoItem {
   dbService = inject(DBService);
+
   item = input.required<Todo>();
+  newItem = input(false);
+
+  cancelNew = output();
+
   newName = '';
 
-  editing = false;
+  isEditing = linkedSignal(() => this.newItem());
 
   setEditing() {
     this.newName = this.item().name;
-    this.editing = true;
+    this.isEditing.set(true);
   }
 
   saveName() {
     if (this.item().id) {
       this.dbService.updateItem({ ...this.item(), name: this.newName });
       this.item().name = this.newName;
-      this.editing = false;
+    } else {
+      // will create new item and will need to refresh
+      console.log(this.item());
+      this.dbService.createItem({ ...this.item(), name: this.newName });
+      this.cancelNew.emit();
     }
+
+    this.isEditing.set(false);
   }
 
   cancelEdit() {
-    this.editing = false;
+    this.isEditing.set(false);
+
+    if (!this.item().id) {
+      // remove if new
+      this.cancelNew.emit();
+    }
   }
 
   // TODO: make sure this actually works on device
@@ -39,9 +55,12 @@ export class TodoItem {
   }
 
   deleteItem(event: PointerEvent) {
+    const id = this.item().id;
+    if (id === undefined) return;
+
     console.log('deleting item', this.item().name, this.item().id);
     console.log(typeof this.item().id);
     event.preventDefault(); // hopefully stops double click event from being fired
-    this.dbService.deleteItem(this.item().id);
+    this.dbService.deleteItem(id);
   }
 }

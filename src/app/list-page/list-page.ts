@@ -12,18 +12,35 @@ import { Router } from '@angular/router';
 })
 export class ListPage {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private data = toSignal(this.route.data);
   private DAY = 24 * 60 * 60 * 1000; // move to consts file if there are any others
+
+  dbService = inject(DBService);
+  date = computed(() => this.data()!['date']);
+
+  dbResource = resource({
+    params: () => ({ date: this.date() }),
+    loader: (params) => this.dbService.getItemsByDate(params.params.date),
+  });
+
   today = new Date().toLocaleDateString('en-CA');
+  items = computed(() => this.dbResource.value());
+
+  adding = false;
 
   addItem() {
-    console.log('adding item');
-    this.dbService.addItem();
+    this.adding = true;
+  }
+
+  removeNew() {
+    this.adding = false;
   }
 
   handleScrollBackward() {
     console.log('handleScrollBackward');
     console.log(this.data(), this.date());
-
+    this.adding = false;
     // get previous date
     const currentDate = new Date(`${this.date()}T00:00`);
     const prevDateValue = currentDate.valueOf() - this.DAY;
@@ -39,6 +56,7 @@ export class ListPage {
     console.log(this.data(), this.date());
     // get next date
 
+    this.adding = false;
     const currentDate = new Date(`${this.date()}T00:00`);
     const nextDateValue = currentDate.valueOf() + this.DAY;
 
@@ -47,16 +65,6 @@ export class ListPage {
     // route
     this.router.navigate([`/date/${nextDate.toLocaleDateString('en-CA')}`]);
   }
-
-  private route = inject(ActivatedRoute);
-  private data = toSignal(this.route.data);
-  dbService = inject(DBService);
-  date = computed(() => this.data()!['date']);
-
-  dbResource = resource({
-    params: () => ({ date: this.date() }),
-    loader: (params) => this.dbService.getItemsByDate(params.params.date),
-  });
 
   isLoading = computed(() => this.dbResource.status() === 'loading');
   isError = computed(() => this.dbResource.status() === 'error');

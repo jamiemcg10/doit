@@ -73,14 +73,14 @@ export class DBService {
     });
   }
 
-  addItem() {
+  createItem(item: Todo) {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const transaction = this.db.transaction('dates', 'readwrite');
     console.log({ transaction });
     const objectStore = transaction.objectStore('dates');
 
-    const request = objectStore.add({ date: '2026-03-28', name: 'Test 1', completed: false });
+    const request = objectStore.add(item);
 
     request.onsuccess = () => console.log('yay');
   }
