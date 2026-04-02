@@ -2,10 +2,19 @@
   <header class="flex justify-around items-center text-center">
     <icon-button icon="arrow_back_2" size="large" (click)="handleScrollBackward()" />
     <div class="flex items-center">
-      <icon-button icon="calendar_month" /><span
-        class="ml-2 text-xl text-[royalblue] font-bold leading-4.5"
-        >{{ date() === today ? 'Today' : date() }}</span
-      >
+      <icon-button icon="calendar_month" (click)="picker.open()" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [formControl]="calendarDate"
+        (dateChange)="handleDateChange()"
+        style="visibility: hidden; width: 0"
+      />
+      <mat-datepicker #picker></mat-datepicker>
+
+      <span class="ml-2 text-xl text-[royalblue] font-bold leading-4.5">{{
+        date() === today ? 'Today' : dateString()
+      }}</span>
     </div>
     <icon-button icon="play_arrow" size="large" (click)="handleScrollForward()" />
   </header>
