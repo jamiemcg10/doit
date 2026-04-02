@@ -16,6 +16,7 @@ export class TodoItem {
   newItem = input(false);
 
   cancelNew = output();
+  triggerUpdate = output();
 
   newName = '';
 
@@ -37,6 +38,7 @@ export class TodoItem {
     }
 
     this.editing.set(false);
+    this.triggerUpdate.emit();
   }
 
   cancelEdit() {
@@ -52,13 +54,16 @@ export class TodoItem {
   toggleComplete() {
     console.log('toggling complete');
     this.dbService.toggleItemComplete(this.item());
+    this.triggerUpdate.emit();
   }
 
   moveToNextDay() {
     this.dbService.updateItem({ ...this.item(), date: getNextDateString(this.item().date) });
+    this.triggerUpdate.emit();
   }
   moveToPreviousDay() {
     this.dbService.updateItem({ ...this.item(), date: getPrevDateString(this.item().date) });
+    this.triggerUpdate.emit();
   }
 
   deleteItem(event: PointerEvent) {
@@ -68,5 +73,6 @@ export class TodoItem {
     console.log('deleting item', this.item().name, this.item().id);
     event.preventDefault(); // hopefully stops double click event from being fired
     this.dbService.deleteItem(id);
+    this.triggerUpdate.emit();
   }
 }

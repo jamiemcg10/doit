@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource } from '@angular/core';
+import { Component, computed, inject, linkedSignal, resource } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { DBService } from '../services/DBService';
@@ -25,9 +25,13 @@ export class ListPage {
   });
 
   today = new Date().toLocaleDateString('en-CA');
-  items = computed(() => this.dbResource.value());
+  items = linkedSignal(() => this.dbResource.value());
 
   adding = false;
+
+  reload() {
+    this.dbResource.reload();
+  }
 
   addItem() {
     this.adding = true;

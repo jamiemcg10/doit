@@ -15,7 +15,7 @@
       <div class="text-center mt-4 text-xl font-semibold text-[royalblue]">Loading...</div>
     } @else if (items()?.length) {
       @for (item of items(); track item.id) {
-        <todo-item [item]="item" />
+        <todo-item [item]="item" (triggerUpdate)="reload()" />
       }
     } @else {
       <div class="text-center mt-4 text-xl font-semibold text-[royalblue]">Nothing to do!</div>
