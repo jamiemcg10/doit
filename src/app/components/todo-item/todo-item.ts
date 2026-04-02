@@ -18,11 +18,11 @@ export class TodoItem {
 
   newName = '';
 
-  isEditing = linkedSignal(() => this.newItem());
+  editing = linkedSignal(() => this.newItem());
 
   setEditing() {
     this.newName = this.item().name;
-    this.isEditing.set(true);
+    this.editing.set(true);
   }
 
   saveName() {
@@ -36,11 +36,11 @@ export class TodoItem {
       this.cancelNew.emit();
     }
 
-    this.isEditing.set(false);
+    this.editing.set(false);
   }
 
   cancelEdit() {
-    this.isEditing.set(false);
+    this.editing.set(false);
 
     if (!this.item().id) {
       // remove if new
