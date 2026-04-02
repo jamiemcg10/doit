@@ -11,7 +11,9 @@
   </header>
 
   <main class="grow px-2 my-2 mb-16">
-    @if (items()?.length) {
+    @if (!items() || isLoading()) {
+      <div class="text-center mt-4 text-xl font-semibold text-[royalblue]">Loading...</div>
+    } @else if (items()?.length) {
       @for (item of items(); track item.id) {
         <todo-item [item]="item" />
       }
