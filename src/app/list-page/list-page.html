@@ -26,7 +26,7 @@
       @for (item of items(); track item.id) {
         <todo-item [item]="item" (triggerUpdate)="reload()" />
       }
-    } @else {
+    } @else if (!adding) {
       <div class="text-center mt-4 text-xl font-semibold text-[royalblue]">Nothing to do!</div>
     }
 
