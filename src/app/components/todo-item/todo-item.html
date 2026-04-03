@@ -1,4 +1,8 @@
-<div class="flex rounded-sm border border-gray-200 shadow-md p-4 mb-2 justify-between">
+<div
+  class="flex rounded-sm border border-gray-200 shadow-md p-4 mb-2 justify-between"
+  [class.opacity-70]="item().completed"
+  [class.shadow-sm]="item().completed"
+>
   <div>
     <input
       type="checkbox"
@@ -19,17 +23,23 @@
       <span class="text-lg font-semibold">{{ item().name }}</span>
     }
   </div>
-  <div class="flex space-x-2">
-    @if (editing()) {
-      @if (newName) {
-        <icon-button icon="check" (click)="saveName()" />
+  @if (!item().completed) {
+    <div class="flex space-x-2">
+      @if (editing()) {
+        @if (newName) {
+          <icon-button icon="check" (click)="saveName()" />
+        }
+        <icon-button icon="close" (click)="cancelEdit()" />
+      } @else {
+        <icon-button
+          icon="move_item"
+          [style]="{ rotate: '180deg' }"
+          (click)="moveToPreviousDay()"
+        />
+        <icon-button icon="edit" (click)="setEditing()" />
+        <icon-button icon="delete" (click)="deleteItem()" />
+        <icon-button icon="move_item" (click)="moveToNextDay()" />
       }
-      <icon-button icon="close" (click)="cancelEdit()" />
-    } @else {
-      <icon-button icon="move_item" [style]="{ rotate: '180deg' }" (click)="moveToPreviousDay()" />
-      <icon-button icon="edit" (click)="setEditing()" />
-      <icon-button icon="delete" (click)="deleteItem()" />
-      <icon-button icon="move_item" (click)="moveToNextDay()" />
-    }
-  </div>
+    </div>
+  }
 </div>
