@@ -22,6 +22,12 @@ export class TodoItem {
 
   editing = linkedSignal(() => this.newItem());
 
+  handleKeypress(e: any) {
+    console.log('hi', e);
+    if (e.key === 'Enter' && this.newName) {
+      this.saveName();
+    }
+  }
   setEditing() {
     this.newName = this.item().name;
     this.editing.set(true);

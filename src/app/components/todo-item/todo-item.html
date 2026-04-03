@@ -13,6 +13,7 @@
         type="text"
         [(ngModel)]="newName"
         class="text-lg font-semibold inline border-b focus:outline-none"
+        (keypress)="handleKeypress($event)"
       />
     } @else {
       <span class="text-lg font-semibold">{{ item().name }}</span>
