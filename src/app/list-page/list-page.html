@@ -35,6 +35,7 @@
         [item]="{ name: '', completed: false, date: date() }"
         [newItem]="true"
         (cancelNew)="removeNew()"
+        (triggerUpdate)="reload()"
       />
     }
   </main>
