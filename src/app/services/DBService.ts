@@ -25,15 +25,12 @@ export class DBService {
       this.db = await new Promise<IDBDatabase | void>((resolve, reject) => {
         const request = indexedDB.open(this.DB_NAME, 1);
 
-        console.log({ request });
-
         request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error); // ? what is assigned?
+        request.onerror = () => reject(request.error);
         request.onupgradeneeded = (event) => {
           const db = (event!.target! as DBOpenEventTarget).result;
           // Create an objectStore for this database
           const objectStore = db.createObjectStore('dates', {
-            // change later
             autoIncrement: true,
             keyPath: 'id',
           });
@@ -73,7 +70,7 @@ export class DBService {
 
     const request = objectStore.add(item);
 
-    request.onsuccess = () => console.log('yay');
+    request.onsuccess = () => console.log('add successful');
   }
 
   updateItem(item: Todo) {
@@ -84,8 +81,7 @@ export class DBService {
 
     const request = objectStore.put(item);
 
-    request.onsuccess = () => console.log('yay');
-    request.onerror = () => console.log('nooo');
+    request.onsuccess = () => console.log('update successful');
   }
 
   deleteItem(id: number) {
@@ -95,7 +91,7 @@ export class DBService {
     const objectStore = transaction.objectStore('dates');
 
     const request = objectStore.delete(id);
-    request.onsuccess = () => console.log('gone');
+    request.onsuccess = () => console.log('delete successful');
   }
 
   toggleItemComplete(item: Todo) {
@@ -103,6 +99,6 @@ export class DBService {
     const objectStore = transaction.objectStore('dates');
 
     const request = objectStore.put({ ...item, completed: !item.completed });
-    request.onsuccess = () => console.log('toggled');
+    request.onsuccess = () => console.log('toggle successful');
   }
 }
