@@ -46,7 +46,7 @@ export class ListPage {
       }),
     }),
   );
-  items = linkedSignal(() => this.dbResource.value());
+  items = linkedSignal(() => this.dbResource.value()?.sort((a, b) => (a.completed ? 1 : -1)));
 
   adding = false;
 
