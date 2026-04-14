@@ -1,4 +1,12 @@
-import { Component, input, inject, output, linkedSignal } from '@angular/core';
+import {
+  Component,
+  input,
+  inject,
+  output,
+  linkedSignal,
+  afterEveryRender,
+  ElementRef,
+} from '@angular/core';
 import { IconButton } from '../icon-button/icon-button';
 import { DBService } from '../../services/DBService';
 import { Todo } from '../../types';
@@ -10,6 +18,14 @@ import { getNextDateString, getPrevDateString } from '../../utils/getDateStrings
   imports: [IconButton, FormsModule],
 })
 export class TodoItem {
+  constructor() {
+    const nameInputEl = inject(ElementRef);
+
+    afterEveryRender(() => {
+      nameInputEl.nativeElement.querySelector('input[type=text]')?.focus();
+    });
+  }
+
   dbService = inject(DBService);
 
   item = input.required<Todo>();
@@ -23,7 +39,6 @@ export class TodoItem {
   editing = linkedSignal(() => this.newItem());
 
   handleKeypress(e: any) {
-    console.log('hi', e);
     if (e.key === 'Enter' && this.newName) {
       this.saveName();
     }
